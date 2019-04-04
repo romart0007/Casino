@@ -1,9 +1,9 @@
 <template>
-  <b-container fluid class="hero pt-5 pb-5 pr-0 pl-0">
-    <b-container class="h-100 pb-2">
+  <b-container fluid class="bg-holder pb-5 pr-0 pl-0">
+    <b-container class="hero h-100 pb-2">
       <b-row class="h-100 mb-3">
         <b-col class="text-white pt-5" cols="12" sm="6">
-          <div class="promo-container mb-5">
+          <div class="promo-container">
             <p class="bg-info">Exclusive offers from / logo</p>
             <h4>Get Your</h4>
             <h1>100% up to &#163; 400</h1>
@@ -12,7 +12,6 @@
         </b-col>
         <b-col class="text-white pt-5" cols="12" sm="6">
           <div class="form-container mx-auto">
-            <p class="text-muted">{{ currentStep }}</p>
             <FormStepOne v-on:goToStep="goToStepMain" v-if="currentStep == 1"/>
             <FormStepTwo v-on:goToStep="goToStepMain" v-if="currentStep == 2"/>
             <FormStepThree v-on:goToStep="goToStepMain" v-if="currentStep == 3"/>
@@ -22,10 +21,10 @@
       </b-row>
       <b-row class="legal-text">
         <b-col>
-          <p class="text-white">&#43; Terms and conditions apply</p>
+          <p>&#43; Terms and conditions apply</p>
         </b-col>
         <b-col>
-          <p class="text-white">This website is licensed to offer online casino.</p>
+          <p>This website is licensed to offer online casino.</p>
         </b-col>
       </b-row>
     </b-container>
@@ -53,13 +52,13 @@ export default {
 </script>
 
 <style lang="scss">
-.hero {
+.bg-holder {
   background-image: url("/src/assets/casino-hero.jpg");
-  height: 100vh;
-  background-attachment: fixed;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  height: 100vh;
+  padding-top: 6em;
 }
 
 .bg-info:not(.navbar) {
@@ -78,17 +77,23 @@ export default {
   margin-bottom: 10px;
 }
 
-.input-group-text {
-  background-color: #fff;
-}
-.form-control {
-  border-left: 0 none;
+// .input-group-text {
+//   background-color: #fff;
+// }
 
+.form-control {
   &:focus,
   &:active,
   &:hover {
     box-shadow: none;
   }
+}
+
+.legal-text p {
+  color: rgba(255, 255, 255, 0.7);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 @media only screen and (min-width: 1200px) {
@@ -107,8 +112,9 @@ export default {
 }
 
 @media screen and (max-width: 675px) {
-  .hero {
+  .bg-holder {
     height: 100%;
+    padding-top: 4em;
 
     .container {
       max-width: 80%;
@@ -127,8 +133,11 @@ export default {
 }
 
 @media screen and (max-width: 576px) {
-  .hero .container {
-    max-width: 95%;
+  .bg-holder {
+    background: transparent;
+    .container {
+      max-width: 95%;
+    }
   }
 }
 

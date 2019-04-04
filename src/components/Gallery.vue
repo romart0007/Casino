@@ -1,9 +1,9 @@
 <template>
   <b-container fluid>
-    <div class="container gallery-container pt-4">
+    <div class="container gallery-container pt-4 pb-4">
       <div class="grid">
-        <div class="gallery" v-for="img in imgArr">
-          <img :src="img.src" fluid>
+        <div class="gallery transition-effect" v-for="(img, i) in imgArr" :key="i">
+          <img :src="img.src" fluid class="box-shadow">
         </div>
       </div>
     </div>
@@ -26,6 +26,12 @@ export default {
         },
         {
           src: require("../assets/batman.jpg")
+        },
+        {
+          src: require("../assets/catwoman.png")
+        },
+        {
+          src: require("../assets/batgirl.png")
         }
       ]
     };
@@ -43,11 +49,9 @@ export default {
 
 div.gallery {
   margin: 1rem;
-  border: 1px solid #ccc;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  -webkit-transition: width 0.8s;
-  transition: width ease-in-out 0.8s;
 
   img {
     width: 100%;
@@ -65,21 +69,31 @@ div.gallery:hover {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: center;
   }
   .gallery {
     width: calc(50% - 2rem);
+    &:nth-child(5),
+    &:nth-child(6) {
+      display: none;
+    }
   }
 }
 
 @media screen and (min-width: 767px) {
   .gallery {
-    width: calc(33% - 2rem);
+    width: calc(24% - 2rem);
   }
 }
 
 @media screen and (min-width: 991px) {
   .gallery {
-    width: calc(24% - 2rem);
+    display: inline-block;
+    width: calc(15% - 2rem);
+    &:nth-child(5),
+    &:nth-child(6) {
+      display: flex;
+    }
   }
 }
 </style>
