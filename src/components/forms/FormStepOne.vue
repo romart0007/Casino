@@ -2,7 +2,7 @@
   <b-form>
     <h2 class="text-left font-weight-light text-warning">Sign Up</h2>
     <b-form-text
-      class="mb-2"
+      class="mb-4 text-left"
     >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse maximus ut tortor eget elementum.</b-form-text>
     <b-input-group>
       <b-input-group-prepend>

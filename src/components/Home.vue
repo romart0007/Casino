@@ -1,16 +1,16 @@
 <template>
-  <b-container fluid class="hero p-0">
-    <b-container class="h-100 pt-5">
-      <b-row class="h-100">
-        <b-col class="text-white" cols="12" sm="6">
-          <div class="promo-container">
+  <b-container fluid class="hero pt-5 pb-5 pr-0 pl-0">
+    <b-container class="h-100 pb-2">
+      <b-row class="h-100 mb-3">
+        <b-col class="text-white pt-5" cols="12" sm="6">
+          <div class="promo-container mb-5">
             <p class="bg-info">Exclusive offers from / logo</p>
             <h4>Get Your</h4>
             <h1>100% up to &#163; 400</h1>
             <h2>+200 Free Spins</h2>
           </div>
         </b-col>
-        <b-col class="text-white" cols="12" sm="6">
+        <b-col class="text-white pt-5" cols="12" sm="6">
           <div class="form-container mx-auto">
             <p class="text-muted">{{ currentStep }}</p>
             <FormStepOne v-on:goToStep="goToStepMain" v-if="currentStep == 1"/>
@@ -20,14 +20,22 @@
           </div>
         </b-col>
       </b-row>
+      <b-row class="legal-text">
+        <b-col>
+          <p class="text-white">&#43; Terms and conditions apply</p>
+        </b-col>
+        <b-col>
+          <p class="text-white">This website is licensed to offer online casino.</p>
+        </b-col>
+      </b-row>
     </b-container>
   </b-container>
 </template>
 <script>
-import FormStepOne from "./FormStepOne";
-import FormStepTwo from "./FormStepTwo";
-import FormStepThree from "./FormStepThree";
-import FormStepFour from "./FormStepFour";
+import FormStepOne from "./forms/FormStepOne";
+import FormStepTwo from "./forms/FormStepTwo";
+import FormStepThree from "./forms/FormStepThree";
+import FormStepFour from "./forms/FormStepFour";
 export default {
   data() {
     return {
@@ -44,19 +52,23 @@ export default {
 };
 </script>
 
-
-<style <style lang="scss">
+<style lang="scss">
 .hero {
   background-image: url("/src/assets/casino-hero.jpg");
   height: 100vh;
+  background-attachment: fixed;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.bg-info {
+.bg-info:not(.navbar) {
   background-color: rgba(23, 162, 184, 0.2) !important;
   padding: 10px;
 }
 
 .form-container {
+  box-shadow: 0 0 20px #000;
   background: #fff;
   padding: 5%;
   border-radius: 5px;
@@ -88,9 +100,41 @@ export default {
   }
 }
 
-@media only screen and (min-width: 576px) and (max-width: 767px) {
+@media screen and (max-width: 767px) {
   .container {
-    max-width: 700px;
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 675px) {
+  .hero {
+    height: 100%;
+
+    .container {
+      max-width: 80%;
+    }
+
+    .col-12 {
+      -ms-flex: 0 0 100%;
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+
+    .legal-text {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .hero .container {
+    max-width: 95%;
+  }
+}
+
+@media only screen and (min-width: 675px) and (max-width: 991px) {
+  .promo-container p {
+    display: none;
   }
 }
 </style>
