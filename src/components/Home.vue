@@ -75,7 +75,7 @@ export default {
   position: relative;
 
   @media (orientation: landscape) {
-    height: 130vh;
+    height: 150vh;
   }
 
   &::before {
