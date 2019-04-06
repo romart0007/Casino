@@ -2,13 +2,8 @@
   <b-container fluid>
     <div class="container gallery-container pt-4 pb-4">
       <div class="grid">
-<<<<<<< HEAD
-        <div class="gallery" v-for="(img, i) in imgArr" :key="i">
-          <img :src="img.src" fluid>
-=======
-        <div class="gallery transition-effect" v-for="(img, i) in imgArr" :key="i">
+        <div class="gallery transition-effect" v-for="(img, index) in imgArr" :key="index">
           <img :src="img.src" fluid class="box-shadow">
->>>>>>> d935d67df01f8e1bf7461f49fe12a75caf28b028
         </div>
       </div>
     </div>

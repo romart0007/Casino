@@ -11,7 +11,7 @@
           </div>
         </b-col>
         <b-col class="text-white pt-5" cols="12" sm="6">
-          <div class="form-container mx-auto">
+          <div class="form-container mx-auto one" ref="myForm" :class="fadeClass">
             <FormStepOne v-on:goToStep="goToStepMain" v-if="currentStep == 1"/>
             <FormStepTwo v-on:goToStep="goToStepMain" v-if="currentStep == 2"/>
             <FormStepThree v-on:goToStep="goToStepMain" v-if="currentStep == 3"/>
@@ -19,7 +19,7 @@
           </div>
         </b-col>
       </b-row>
-      <b-row class="legal-text">
+      <b-row class="legal-text pt-2">
         <b-col>
           <p>&#43; Terms and conditions apply</p>
         </b-col>
@@ -38,16 +38,29 @@ import FormStepFour from "./forms/FormStepFour";
 export default {
   data() {
     return {
-      currentStep: 1
+      currentStep: 1,
+      window,
+      fadeClass: "fade-in"
     };
   },
   methods: {
     goToStepMain(value) {
-      console.log(value);
       this.currentStep = value;
+    },
+    handleResize() {
+      this.window.width = window.innerWidth;
+      if (this.window.width <= 767) {
+        this.fadeClass = "slide-in";
+      } else {
+        this.fadeClass = "fade-in";
+      }
     }
   },
-  components: { FormStepOne, FormStepTwo, FormStepThree, FormStepFour }
+  components: { FormStepOne, FormStepTwo, FormStepThree, FormStepFour },
+  created() {
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
+  }
 };
 </script>
 
@@ -58,7 +71,19 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
-  padding-top: 6em;
+  padding-top: 5em;
+  position: relative;
+
+  &::before {
+    background: rgba(black, 0.3);
+    display: block;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+  }
 }
 
 .bg-info:not(.navbar) {
@@ -94,6 +119,18 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translate(0, 10px);
+  opacity: 0;
 }
 
 @media only screen and (min-width: 1200px) {
