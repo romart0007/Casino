@@ -11,7 +11,7 @@
           </div>
         </b-col>
         <b-col class="text-white pt-5" cols="12" sm="6">
-          <div class="form-container mx-auto one" ref="myForm" :class="fadeClass">
+          <div class="form-container mx-auto" ref="myForm" :class="fadeClass">
             <FormStepOne v-on:goToStep="goToStepMain" v-if="currentStep == 1"/>
             <FormStepTwo v-on:goToStep="goToStepMain" v-if="currentStep == 2"/>
             <FormStepThree v-on:goToStep="goToStepMain" v-if="currentStep == 3"/>
@@ -73,6 +73,10 @@ export default {
   height: 100vh;
   padding-top: 5em;
   position: relative;
+
+  @media (orientation: landscape) {
+    height: 130vh;
+  }
 
   &::before {
     background: rgba(black, 0.3);
