@@ -2,7 +2,7 @@
   <b-container fluid>
     <div class="container gallery-container pt-4">
       <div class="grid">
-        <div class="gallery" v-for="img in imgArr">
+        <div class="gallery" v-for="(img, i) in imgArr" :key="i">
           <img :src="img.src" fluid>
         </div>
       </div>
