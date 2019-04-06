@@ -78,6 +78,10 @@ export default {
     height: 150vh;
   }
 
+  @media (orientation: portrait) {
+    height: 100vh;
+  }
+
   &::before {
     background: rgba(black, 0.3);
     display: block;
