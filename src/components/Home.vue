@@ -74,14 +74,6 @@ export default {
   padding-top: 5em;
   position: relative;
 
-  @media (orientation: landscape) {
-    height: 150vh;
-  }
-
-  @media (orientation: portrait) {
-    height: 100vh;
-  }
-
   &::before {
     background: rgba(black, 0.3);
     display: block;
@@ -140,6 +132,10 @@ export default {
   transform: translate(0, 10px);
   opacity: 0;
 }
+
+@media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    height: 130vh;
+  }
 
 @media only screen and (min-width: 1200px) {
   .promo-container {
