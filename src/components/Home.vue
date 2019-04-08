@@ -1,6 +1,6 @@
 <template>
-  <b-container fluid class="bg-holder pb-5 pr-0 pl-0">
-    <b-container class="hero h-100 pb-2">
+  <b-container fluid class="bg-holder pb-5 pr-0 pl-0" ref="bgHolder" :style="styleBgHolder">
+    <b-container class="hero pb-2" ref="hero" :style="heroHeight">
       <b-row class="h-100 mb-3">
         <b-col class="text-white pt-5" cols="12" sm="6">
           <div class="promo-container">
@@ -40,7 +40,13 @@ export default {
     return {
       currentStep: 1,
       window,
-      fadeClass: "fade-in"
+      fadeClass: "fade-in",
+      styleBgHolder: {
+        height: ""
+      },
+      heroHeight: {
+        height: ""
+      }
     };
   },
   methods: {
@@ -54,12 +60,47 @@ export default {
       } else {
         this.fadeClass = "fade-in";
       }
+    },
+    dynamicHeight() {
+      const bgHolder = this.$refs.bgHolder.clientHeight;
+      let hero = parseInt(this.$refs.hero.clientHeight + 100);
+
+      if (
+        bgHolder < hero &&
+        window.matchMedia("(orientation: landscape)").matches
+      ) {
+        this.styleBgHolder.height = "auto";
+        this.heroHeight.height = "auto";
+        console.log(true);
+      } else {
+        console.log(false);
+        this.styleBgHolder.height = "100vh";
+        this.heroHeight.height = "";
+      }
     }
   },
   components: { FormStepOne, FormStepTwo, FormStepThree, FormStepFour },
-  created() {
-    window.addEventListener("resize", this.handleResize);
+  mounted() {
+    window.addEventListener("resize", debounce(this.handleResize), 250);
+    window.addEventListener("resize", debounce(this.dynamicHeight), 250);
     this.handleResize();
+    this.dynamicHeight();
+
+    function debounce(func, wait, immediate) {
+      var timeout;
+      return function() {
+        var context = this,
+          args = arguments;
+        var later = function() {
+          timeout = null;
+          if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+      };
+    }
   }
 };
 </script>
@@ -96,6 +137,8 @@ export default {
   background: #fff;
   padding: 5%;
   border-radius: 5px;
+  position: relative;
+  z-index: 2;
 }
 
 .input-group {
@@ -114,11 +157,20 @@ export default {
   }
 }
 
-.legal-text p {
-  color: rgba(255, 255, 255, 0.7);
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+.legal-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  p {
+    color: rgba(255, 255, 255, 0.7);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }
 
 .slide-fade-enter-active {
@@ -134,8 +186,8 @@ export default {
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-    height: 130vh;
-  }
+  height: 130vh;
+}
 
 @media only screen and (min-width: 1200px) {
   .promo-container {
@@ -154,7 +206,7 @@ export default {
 
 @media screen and (max-width: 675px) {
   .bg-holder {
-    height: 100%;
+    height: 100% !important;
     padding-top: 4em;
 
     .container {
